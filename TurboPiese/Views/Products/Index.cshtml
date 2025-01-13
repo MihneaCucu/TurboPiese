@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@if (TempData.ContainsKey("message"))
+
+{
+        <div class="mssg">
+        @ViewBag.message
+        </div>
+}
+@if (TempData.ContainsKey("error_message"))
+
+{
+        <div class="error_mssg">
+        @ViewBag.error_message
+        </div>
+}
+<br />
+<h2 class="text-center">Afisare produse</h2>
+<hr />
+<br />
+
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary-custom" href="/Products/New">Adauga produs</a>
+    <br />
+</div>
+
+<br />
+
+<div class="products_index">
+    @foreach (var product in ViewBag.Products)
+    {
+        <div class="product_card" onclick="location.href='/Products/Show/@product.Id'">
+            <partial name="ProductIndex" model="product" />
+            <div class="product_buttons">
+                <a class="btn btn-primary-custom" asp-controller="Products" asp-action="Show" asp-route-id="@product.Id">
+                    mai multe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    }
+</div>

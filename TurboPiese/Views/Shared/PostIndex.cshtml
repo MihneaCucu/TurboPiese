@@ -1,0 +1,27 @@
+﻿@model TurboPiese.Models.Post
+
+
+<partial name="ProductIndex" model="@Model.Product"></partial>
+<div class="post_text">@Model.Price lei</div>
+<div class="star_rating">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @for (int i = 1; i <= 5; i++)
+    {
+        if (i <= Math.Floor(Model.Rating))
+        {
+            <span class="fa fa-star checked"></span>
+        }
+        else
+        {
+            <span class="fa fa-star"></span>
+        }
+    }
+</div>
+
+
+    <style>
+        .no-link-style {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>

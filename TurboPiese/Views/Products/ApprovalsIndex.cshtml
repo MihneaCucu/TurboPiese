@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <div class="mssg">
+        @ViewBag.message
+    </div>
+}
+@if (TempData.ContainsKey("error_message"))
+{
+    <div class="error_mssg">
+        @ViewBag.error_message
+    </div>
+}
+<br />
+
+<h2 class="text-center">Produse noi</h2>
+<hr />
+<br />
+<div class="products_index">
+@foreach (var product in ViewBag.AppProducts)
+{
+    <div class="product_card">
+            <partial name="ProductIndex" model="product"/>
+            <div class="product_text">adaugat de: @product.User.Email</div>
+        <div class="product_buttons">
+            <form method="post" asp-controller="Products" asp-action="Approve" asp-route-id="@product.Id">
+                    <button class="btn btn-primary-custom" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-lg" viewBox="0 0 16 16">
+                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                    </svg> Aproba
+                </button>
+            </form>
+            <form method="post" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">
+                    <button class="btn btn-warning-custom" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                    </svg> Sterge
+                </button>
+            </form>
+        </div>
+    </div>
+}
+</div>
+
+<h3 class="text-center">Sugestii de Editare</h3>
+<hr />
+<br />
+<div class="products_double_index">
+@foreach (var edproduct in ViewBag.EditedProducts)
+{
+    <div class="double_card">
+        <div class="product_card">
+            <h3 class="product_name">@edproduct.OriginalProduct.Name</h3>
+            <div class="product_image">
+                <img src="@edproduct.OriginalProduct.Image" alt="img not found" />
+            </div>
+            <div class="product_category">
+                @edproduct.OriginalProduct.Category.CategoryName
+            </div>
+            <div class="product_text">stoc: @edproduct.OriginalProduct.Stock</div>
+            <div class="product_buttons">
+                    <form method="post" asp-controller="EditedProducts" asp-action="Delete" asp-route-id="@edproduct.Id">
+
+                        <button class="btn btn-warning-custom" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z" />
+                                <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466" />
+                            </svg> Pastreaza originalul
+                        </button>
+
+                    </form>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+        </svg>
+        <div class="product_card">
+            <h3 class="product_name">@edproduct.Name</h3>
+            <div class="product_image">
+                <img src="@edproduct.Image" alt="img not found" />
+            </div>
+            <div class="product_category">
+                @edproduct.OriginalProduct.Category.CategoryName
+            </div>
+            <div class="product_text">stoc: @edproduct.Stock</div>
+            <div class="product_buttons">
+                    <form method="post" asp-controller="Products" asp-action="ApproveEdit" asp-route-id="@edproduct.Id">
+                        <button class="btn btn-primary-custom" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                            </svg> Aproba editarea
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <div class="double_button">
+
+    </div>
+}
+</div>

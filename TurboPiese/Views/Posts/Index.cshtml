@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+@if (TempData.ContainsKey("message"))
+
+{
+    <div class="mssg">
+        @ViewBag.message
+    </div>
+}
+@if (TempData.ContainsKey("error_message"))
+
+{
+    <div class="error_mssg">
+        @ViewBag.error_message
+    </div>
+}
+<br />
+<h2 class="text-center">Afisare postari</h2>
+<hr />
+<br />
+
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary-custom" href="/Posts/New">Adauga postare</a>
+    <br />
+</div>
+
+<br />
+
+<form method="GET">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Cautati dupa nume sau categorie" name="search"
+               value="@ViewBag.SearchString">
+        <button class="btn btn-primary-custom" type="submit">Cautare</button>
+    </div>
+    <div class="input-group mb-3">
+        <button class="btn btn-primary-custom" type="submit" name="sortOrder" value="price_asc">Sortare după preț (crescător)</button>
+        <button class="btn btn-primary-custom" type="submit" name="sortOrder" value="price_desc">Sortare după preț (descrescător)</button>
+        <button class="btn btn-primary-custom" type="submit" name="sortOrder" value="rating_asc">Sortare după rating (crescător)</button>
+        <button class="btn btn-primary-custom" type="submit" name="sortOrder" value="rating_desc">Sortare după rating (descrescător)</button>
+    </div>
+</form>
+
+<div class="products_index">
+    @foreach (var post in ViewBag.Posts)
+    {
+        <div class="post_card">
+            <partial name="PostIndex" model="@post" />
+            <div class="post_buttons">
+                <form method="post" asp-controller="Posts" asp-action="AddToCart">
+                    <input type="hidden" name="PostId" value="@post.Id" />
+                    <input type="hidden" name="Stock" value="1" />
+                    <input type="submit" class="btn btn-warning-custom" value="Adauga in Cos"/>
+                </form>
+                <a class="btn btn-primary-custom" asp-controller="Posts" asp-action="Show" asp-route-id="@post.Id">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="@ViewBag.PaginationBaseUrl=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.lastPage; i++)
+            {
+                <li class="page-item"> <a class="page-link" href="@ViewBag.PaginationBaseUrl=@i">@(i)</a> </li>
+            }
+
+            <li class="page-item">
+                <a class="page-link" href="@ViewBag.PaginationBaseUrl=@(ViewBag.lastPage)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

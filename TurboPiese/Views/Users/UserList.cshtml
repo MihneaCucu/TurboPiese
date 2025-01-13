@@ -1,0 +1,63 @@
+﻿@model TurboPiese.Controllers.UserListViewModel
+
+@{
+    ViewData["Title"] = "Lista Utilizatori";
+}
+
+<h2>Lista Utilizatori și Editori</h2>
+
+<h4>Editori</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Utilizator</th>
+            <th>Email</th>
+            <th>Roluri</th>
+            <th>Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var editor in Model.Editors)
+        {
+            <tr>
+                <td>@editor.UserName</td>
+                <td>@editor.Email</td>
+                <td>Editor</td>
+                <td>
+                    <form asp-action="RemoveEditorRole" method="post">
+                        <input type="hidden" name="userId" value="@editor.Id" />
+                        <button type="submit" class="btn btn-warning-custom">Revocă Editor</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Utilizatori</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Utilizator</th>
+            <th>Email</th>
+            <th>Roluri</th>
+            <th>Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.RegularUsers)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>Utilizator</td>
+                <td>
+                    <form asp-action="AddEditorRole" method="post">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <button type="submit" class="btn btn-primary-custom">Fă Editor</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

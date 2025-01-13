@@ -1,0 +1,20 @@
+﻿@model TurboPiese.Models.Product
+<h3 class="product_name">@Model.Name</h3>
+<div class="product_image">
+    <img src ="@Model.Image" alt="img not found" />
+</div>
+<div class= "product_category">
+    @Model.Category.CategoryName
+</div>
+    @if (Model.Stock == 0)
+    {
+    <div class="product_text" color="light-red !important">
+            stoc epuizat
+    </div>
+    }
+    else
+    {
+    <div class="product_text">
+            stoc: @Model.Stock
+    </div>
+    }

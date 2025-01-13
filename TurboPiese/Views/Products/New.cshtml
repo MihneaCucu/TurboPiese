@@ -1,0 +1,58 @@
+﻿@model TurboPiese.Models.Product
+<h2 class="text-center mt-5">Adaugare produs</h2>
+
+<br />
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-3">
+
+            <form enctype="multipart/form-data" method="post" asp-action="New" asp-controller="Products">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label">Numele produsului</label>
+                    <br />
+                    <input asp-for="Name" class="form-control" />
+
+                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                    <br /><br />
+                </div> 
+                <div class="form-group">
+                    <label asp-for="Image">Incarca Imaginea</label>
+                    <input asp-for="Image" class="form-control" type="file" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Stock" class="form-label">Stocul produsului</label>
+                    <br />
+                    <input asp-for="Stock" class="form-control" />
+
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+
+                    <br /><br />
+                </div>
+
+                <div class="form-group">
+                    <label for="CategoryId">Selectati categoria</label>
+                    <br />
+                    <select asp-for="CategoryId" asp-items="Model.Categ" class="form-control">
+                        <option value="">Selectati categoria</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+                    <br />
+                </div>
+                <br />
+                <button class="btn btn-primary-custom" type="submit">Adauga produsul</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

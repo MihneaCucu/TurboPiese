@@ -1,0 +1,23 @@
+﻿@model TurboPiese.Models.Comment
+
+<h2>Editare comentariu</h2>
+<hr />
+<br />
+
+<form method="post" action="/Comments/Edit/@Model.Id">
+
+    <label>Continut comentariu</label>
+    <br />
+
+    <textarea name="Content">@Model.Content</textarea>
+    <br />
+
+    <label>Rating</label>
+    <br />
+    <input type="number" name="Rating" min="1" max="5" value="@Model.Rating" required />
+    <br />
+    <br />
+    <button class="btn btn-primary-custom" type="submit">Editeaza comentariul</button>
+
+</form>
+
